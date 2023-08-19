@@ -6,7 +6,7 @@ import sys
 
 # from utils import get_macd
 import utils as util
-from ats_conn import pipe_comm
+# from ats_conn import pipe_comm
 
 # 출처 : https://4uwingnet.tistory.com/13
 def my_exception_hook(exctype, value, traceback):
@@ -427,7 +427,7 @@ class ATSWnd(WindowClass):
                         if macdo[-1] < 0:
                             b_trading = True
                             buy_cnt = cnt 
-                            price = price   # 구매값
+                            # price = price   # 구매값
                             desc = '==> MACD 매도 : {},  현개가: {},  수량: {}, macdo  [ {}, {}, {} ] '.format(text, price, buy_cnt, 
                                                 '{:,.02f}'.format(macdo[-3]), '{:,.02f}'.format(macdo[-2]), '{:,.02f}'.format(macdo[-1]))
 
@@ -576,10 +576,11 @@ class ATSWnd(WindowClass):
     def on_realtime_hoga_jan(self, real_type: str, code: str, name: str, data: dict):
         """
         주식의 실시간 호가 잔량를 구한다.
+   
         """ 
 
         ########## 호가데이터 덤프 저장 ###
-        if code in self.trade_stocks.stocks:
+        if self.opt.hoga_dump and (code in self.trade_stocks.stocks):
             data['현재가'] = self.trade_stocks.stocks[code]['현재가'] if '현재가' in self.trade_stocks.stocks[code] else 0
             hoga_dir = os.path.join(os.getcwd(), 'hoga')
             if os.path.isdir(hoga_dir) is not True:
@@ -642,6 +643,7 @@ if __name__ == '__main__':
 
     opt.auto_running = True
     opt.develop_mode = True
+    # opt.hoga_dump = True
 
     win = ATSWnd(opt)  # WindowClass의 인스턴스 생성
     win.show()

@@ -45,10 +45,11 @@ DEFAULTTRADESECTIONSIZE = 20
 
 # window 시작 옵션
 class opt_struct:
-    auto_running: bool = False
+    auto_running: bool = False      # 
     trade_min: bool = False
     develop_mode: bool = False
     ui_only_mode: bool = False
+    hoga_dump: bool = False
 
 
 def setDefaultTbl(tbl, defaultSectionSize=DEFAULTSECTIONSIZE, fontname=None, fontsize=None):

@@ -129,6 +129,7 @@ dmypy.json
 .pyre/
 
 # user defines
+ats-py.code-workspace
 /node_modules
 /pyqt-checkbox-table-widget
 /conf
