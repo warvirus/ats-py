@@ -60,4 +60,23 @@
 
 ####  위외 같이 기본 모듈을 설치 하기 힘들면 개발을 하기 위해서 사용한 conda env 파일(<a href="https://drive.google.com/drive/folders/14soNPRwqHd8osdCd9IHT9NLngebvgpWt?usp=sharing">개발툴파일들</a>)을 받아서 ~/anaconda3/envs/ 에 압축을 풀어 사용합니다.
 
+
+### 5. 프로그램 프로그램 실행
+  
+  #### 실행를 하려면, 아래와 같이 진행 하면 됩니다.
+  <div>
+  <p>  d: base> anaconda 설치 </p>
+  <p>  d: base> unzip ~/anaconda3/envs/ 에 'py-ats.zip' 압축 풀기 </p>
+  <p>  d: base> activate py-ats </p>
+  <p>  d: py-ats> python ats_main.py </p>
+  </div>
+
+<br />  
+<br />  
+=================================================
+<br />
+<br />
+
+
    ![Anurag's GitHub stats](https://github-readme-stats.vercel.app/api?username=warvirus&show_icons=true&theme=radical)
+
