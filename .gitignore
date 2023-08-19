@@ -127,3 +127,33 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# user defines
+/node_modules
+/pyqt-checkbox-table-widget
+/conf
+/app
+/data
+/hoga
+/ipython_config
+/logs
+/build
+/.idea
+/.vscode
+/test
+.pylintrc
+package-lock.json
+setup.py
+test_01.py
+trade_cci9.py
+trade_macd_obv.py
+trade.txt
+collect_stocks.py
+ats_conn.py
+makedb.py
+run.bat
+ui/test01.py
+ui/test01.ui
+ui/test02.py
+doc/kiwoom-api.drawio
+/kakao
