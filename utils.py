@@ -134,7 +134,8 @@ default_config = {
         'trading': {
             'start': '0900',
             'end': '1530',
-            'auto-finish': '1530'
+            'auto-finish': '2358',
+            'use-auto-finish': False            
         },
         'account': {
             "passwd": "0000"

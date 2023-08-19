@@ -337,6 +337,12 @@ class baseWindow(QWidget, kiwoom):
         fav_list = config['favorites'][APP_NAME] if 'favorites' in config and APP_NAME in config['favorites'] else {}
         return fav_list
 
+    def disp_kwansim(self, kwansim_list):
+        """
+        관심종목 화면체 출력함
+        :return:
+        """
+        
     def load_fav_list(self, config):
         """
         즐겨찾기 및 주식정보를 읽어 들인다.
@@ -784,7 +790,8 @@ class baseWindow(QWidget, kiwoom):
 
         # 자동시작일때, 정해진 시간에 프로그램 종료
         if self.auto_running:
-            if now_s >= config['general']['trading']['auto-finish'] or self.ats.is_connected is False:
+            if ('use-auto-finish' in config['general']['trading'] and config['general']['trading']['use-auto-finish']) and \
+                (now_s >= config['general']['trading']['auto-finish'] or self.ats.is_connected is False):
                 logging.info('%s : 프로그램이 자동 종료합니다.' % now_s)
                 # QCoreApplication.instance().quit()
                 self.close()
