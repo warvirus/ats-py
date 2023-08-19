@@ -74,6 +74,11 @@
   <p>  d: py-ats> python ats_main.py </p>
   </div>
 
+### 6. 참고 사이트
+  <p><a href="https://wikidocs.net/book/110">파이썬으로 배우는 알고리즘 트레이딩 (개정판-2쇄)</a></p>
+  <p><a href="https://wikidocs.net/5856">자동 버전 처리 스크립트</a></p>
+  <p><a href="http://pyqt.sourceforge.net/Docs/PyQt4/qwebpage.html">Webview for python</a></p>
+  
 <br />  
 <br />  
 =================================================
