@@ -159,3 +159,8 @@ ui/test02.py
 doc/kiwoom-api.drawio
 doc/py-ats.zip
 /kakao
+
+# for mac files
+._*
+.DS_Store
+._DS_Store
