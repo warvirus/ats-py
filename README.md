@@ -1,5 +1,6 @@
 <h2>이 프로젝트는 키움증권API 기반으로 작성된 증권트레이드입니다.</h2>
 
+<a href="https://github.com/sponsors/warvirus" target="_blank" rel="noopener" style=" background-color: #e6ebf1; background-image: linear-gradient(-180deg, #f0f3f6, #e6ebf1 90%); background-position: -0.5em; color: #24292e; text-decoration: none; border: 1px solid rgba(27, 31, 35, 0.35); padding: 6px 10px; user-select: none; background-repeat: repeat-x; background-position: -1px -1px; background-size: 110% 110%; border: 1px solid rgba(27, 31, 35, 0.2); border-radius: 0.25em; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; -webkit-appearance: none; -moz-appearance: none; appearance: none; white-space: nowrap; vertical-align: middle; font-size: 17px; font-family: 'Lato', sans-serif !important; margin: 10px; display: inline-block; "><svg style="color: #ea4aaa; vertical-align: text-bottom !important;" viewBox="0 0 12 16" version="1.1" width="16" height="20" aria-hidden="true"><path fill-rule="evenodd" d="M8.727 3C7.091 3 6.001 4.65 6.001 4.65S4.909 3 3.273 3C1.636 3 0 4.1 0 6.3 0 9.6 6 14 6 14s6-4.4 6-7.7C12 4.1 10.364 3 8.727 3z"></path></svg> Github Sponsor </a>
 
 ### 1. 라이선스 
 
@@ -94,10 +95,13 @@
 
 ### 7. 참고 사이트
   <p><a href="https://wikidocs.net/book/110">파이썬으로 배우는 알고리즘 트레이딩 (개정판-2쇄)</a></p>
+  <p><a href="https://wikidocs.net/book/1173">퀀트투자를 위한 키움증권 API (파이썬 버전)</a>
   <p><a href="https://wikidocs.net/5856">자동 버전 처리 스크립트</a></p>
-  <p><a href="http://pyqt.sourceforge.net/Docs/PyQt4/qwebpage.html">Webview for python</a></p>
-  
-<br />  
+  <p><a href="https://github.com/sculove/QWebview-plus">Webview with javascript and python</a></p>
+
+  위 사이트는 키음중권 API 와 증권 관련 프로그램의 관련된 지식이 많이 있으니 참고하세요.
+
+ 
 <br />  
 =================================================
 <br />
