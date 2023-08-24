@@ -91,7 +91,7 @@
 <img src="screenshot/pic3.png" width=640 height=352 />
 <br />
 <br />
-
+<img width=640 height=352 src="screenshot/2023-08-21-09-11-14.gif"/>
 
 ### 7. 참고 사이트
   <p><a href="https://wikidocs.net/book/110">파이썬으로 배우는 알고리즘 트레이딩 (개정판-2쇄)</a></p>
