@@ -150,7 +150,7 @@ trade_cci9.py
 trade_macd_obv.py
 trade.txt
 collect_stocks.py
-ats_conn.py
+# ats_conn.py
 makedb.py
 run.bat
 ui/test01.py
@@ -159,6 +159,7 @@ ui/test02.py
 doc/kiwoom-api.drawio
 doc/py-ats.zip
 /kakao
+install.txt
 
 # for mac files
 ._*

@@ -31,7 +31,8 @@ import sys
 
 # from utils import get_macd
 import utils as util
-# from ats_conn import pipe_comm
+from ats_conn import tcp_client, PORT
+from ats_conn import MSG, END, HOGA, TXT, PROTO_CMD, PROTO_MSG, PROTO_TXT
 
 # 출처 : https://4uwingnet.tistory.com/13
 def my_exception_hook(exctype, value, traceback):
@@ -58,6 +59,7 @@ def parse_stoploss(step_stoploss_str):
 
 class ATSWnd(WindowClass):
     def __init__(self, opt: opt_struct):
+        # 초기화...
         super().__init__(opt)
 
         self._trade_func_method['methods'] = {
@@ -71,8 +73,24 @@ class ATSWnd(WindowClass):
                       'option': {'매도조건': '매수후'}}
             }
         self._trade_func_method['default'] = '4'
-        # self.pipe_comm = pipe_comm()        # 서버에 호가창 정보를         
 
+        # 외부 컴퓨터와 통신을 하기 위한 코드
+        self.client = None
+        if (self.opt.use_external_srv):
+            self.client = tcp_client()
+
+            port = PORT
+            server_ip = 'localhost'
+            
+            # 외부 주소 사용 ?
+            if self.opt.external_server != '':
+                n = self.opt.external_server.find(':')
+                if (n > 0):
+                    port = self.opt.external_server[n+1:]
+                    server_ip = self.opt.external_server[:n]
+
+            self.client.connect(server_ip, port, user_callback=self.recv_msg)
+             
     def do_periodic_check(self, config, now_s, is_available_trading):
         """
         10 분마다.(미체결 취소)
@@ -116,6 +134,11 @@ class ATSWnd(WindowClass):
 
         max_amount = config['buy']['max-amount']
         for code, trade_stock in self.trade_stocks.stocks.items():
+
+            # if self.client is not None:
+            #    if self.client.send(MSG, msg=json.dumps(trade_stock, ensure_ascii=False)) == False:
+            #        self.client.reconnect()
+     
             # 자동매매 중지 ?
             if self.auto_analysis == False:
                 break
@@ -606,7 +629,14 @@ class ATSWnd(WindowClass):
 
         ########## 호가데이터 덤프 저장 ###
         if self.opt.hoga_dump and (code in self.trade_stocks.stocks):
+            # 현재가
             data['현재가'] = self.trade_stocks.stocks[code]['현재가'] if '현재가' in self.trade_stocks.stocks[code] else 0
+
+            # 코스피, 코스닥 현상태
+            _dashboard = self.ats.dashboard
+            data['코스피'] = _dashboard['코스피']
+            data['코스닥'] = _dashboard['코스닥']
+
             hoga_dir = os.path.join(os.getcwd(), 'hoga')
             if os.path.isdir(hoga_dir) is not True:
                 os.mkdir(hoga_dir)
@@ -619,9 +649,15 @@ class ATSWnd(WindowClass):
             text = '{}({}).json'.format(self.trade_stocks.stocks[code][DESC_STOCK]['name'], code)
             filename = '{}/{}'.format(hoga_dir, date_s + '-' +  text)
 
-            with open(filename, "a") as file:
-                file.write(json.dumps(data) + "|")
+            # UTF-8 한글저장
+            with open(filename, "a", encoding='UTF-8') as file:
+                file.write(json.dumps(data, ensure_ascii=False) + "|")
                 file.close()
+
+            # 외부 서버로 호가 정보를 보내 준다.
+            if self.client is not None:
+                if self.client.send(HOGA, msg=json.dumps(data, ensure_ascii=False)) == False:
+                    self.client.reconnect()
 
         super().on_realtime_hoga_jan(real_type, code, name, data)
 
@@ -632,9 +668,21 @@ class ATSWnd(WindowClass):
         """
         super().on_realtime_hoga_trade(real_type, code, name, data)
 
+    ### 외부 서버로 받은 분석 데이터...
+    def recv_msg(self, conn, u):
+        # msg
+        if u[PROTO_CMD] == MSG:
+            print(u[PROTO_MSG])
+        # text
+        elif u[PROTO_CMD] == TXT:
+            print(u[PROTO_TXT])
+        # hoga
+        elif u[PROTO_CMD] == HOGA:
+            print(u[PROTO_MSG])
 
 if __name__ == '__main__':
     import argparse
+    from ats_version import *
 
     # Back up the reference to the exceptionhook
     sys._excepthook = sys.excepthook
@@ -651,7 +699,10 @@ if __name__ == '__main__':
 
     if len(sys.argv) > 1:
         argv = sys.argv[1:]
-        for arg in argv:
+
+        for idx in range(len(argv)):
+            arg = argv[idx]
+
             if arg.lower() == '-a':
                 opt.auto_running = True
             if arg.lower() == '-m':
@@ -660,15 +711,31 @@ if __name__ == '__main__':
                 opt.develop_mode = True
             if arg.lower() == '-u':
                 opt.ui_only_mode = True
-    else:
-        parser = argparse.ArgumentParser()
-        parser.add_argument("-a")
-        args = parser.parse_args()
-        # print(args.log)
+            if arg.lower() == '-o':
+                opt.hoga_dump = True
+            if arg.lower() == '-s':
+                opt.use_external_srv = True
+            if arg.lower() == '-n':
+                idx += 1
+                arg = argv[idx]
+                opt.external_server = arg
+    # else:
+    
+    # parser = argparse.ArgumentParser(description='키움증권 AI 주식 트레이딩 시스템 ' + version)
+    # parser.add_argument('-a')
+    # parser.add_argument('-c')
+    # parser.add_argument('-v')
+    # # parser.add_argument('-c', '--count')
+    # # parser.add_argument('-v', '--verbose', action='store_true')
+    # args = parser.parse_args()
+    # # print(args.log)
+
+    # print(args.a, args.c, args.v)
 
     opt.auto_running = True
     opt.develop_mode = True
-    # opt.hoga_dump = True
+    opt.hoga_dump = True
+    opt.use_external_srv = True
 
     win = ATSWnd(opt)  # WindowClass의 인스턴스 생성
     win.show()

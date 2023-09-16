@@ -76,6 +76,8 @@ class opt_struct:
     develop_mode: bool = False
     ui_only_mode: bool = False
     hoga_dump: bool = False
+    use_external_srv: bool = False
+    external_server: str = ''           
 
 
 def setDefaultTbl(tbl, defaultSectionSize=DEFAULTSECTIONSIZE, fontname=None, fontsize=None):

@@ -790,7 +790,12 @@ class baseWindow(QWidget, kiwoom):
 
         # 자동시작일때, 정해진 시간에 프로그램 종료
         if self.auto_running:
-            if ('use-auto-finish' in config['general']['trading'] and config['general']['trading']['use-auto-finish']) and \
+            # 자동 종료가 설정에 없을 경우, 그냥 설정된 시간으로 종료 
+            b_use_auto_finish = True
+            if ('use-auto-finish' in config['general']['trading']) :
+                b_use_auto_finish = bool(config['general']['trading']['use-auto-finish'])
+
+            if (b_use_auto_finish) and \
                 (now_s >= config['general']['trading']['auto-finish'] or self.ats.is_connected is False):
                 logging.info('%s : 프로그램이 자동 종료합니다.' % now_s)
                 # QCoreApplication.instance().quit()
